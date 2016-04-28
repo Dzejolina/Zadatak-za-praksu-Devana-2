@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="devana-app">
+<head>
+	<meta charset="utf-8">
+	<title>Devana</title>
+	<!-- Css -->
+	<link rel="stylesheet" type="text/css" href="index.css">
+	 <!-- Bootstrap CSS-->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- JS libraries-->
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/angular.min.js"></script>
+
+    <!-- Custom JS-->
+    <script src="ng/controller.js"></script>
+
+    <!-- Bower -->
+</head>
+<body ng-controller="appController">
+	<div class="header">
+		<button class="toggleFolder btn btn-primary">Create folder</button>
+		<button class="toggleFile btn btn-primary">Create file</button>
+		<img src="devana_white.png">
+	</div>
+	<div class="container">
+		 <div class="row">
+
+        <!-- Preview-->
+        <div class="col-md-6">
+          <div class="klasa" ng-repeat="folder in folders">
+            <div class="row">
+              <div class="col-md-4">
+                <div ng-repeat="n in range(0,5)">
+                  <div ng-if="folder.stage == n | orderBy: 'order' ">
+                    <div  class="row" ng-style=" n === 1 && {'margin-left': '20px'} ||
+                                                 n === 2 && {'margin-left': '40px'} ||
+                                                 n === 3 && {'margin-left': '60px'} ||
+                                                 n === 4 && {'margin-left': '80px'} ||
+                                                 n === 5 && {'margin-left': '100px'}">
+                    <div class="root">
+                      <img src="img/folder.png" width="20">
+                        <span ng-hide="folder.editing"  ng-dblclick="editFolder(folder)"> {{ folder.title }}</span>
+                     
+                      	 <form ng-submit="doneEditing(folder)" ng-show="folder.editing">
+              				<input ng-model="folder.title">
+         				 </form>  
+         				  <a  class="btnDelete" href="#" ng-click="deleteFolder(folder.id)">Delete</a>   
+         			</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+              <div class="col-md-4">
+                  <div ng-repeat="file in files" >
+                    <div ng-if="file.id == folder.id">
+                      <div class="row" style="margin-left:-70px; margin-top: 20px; padding-top: 30px;">
+                        <img src="img/file.png" class="img-rounded" width="20">
+
+                         <span ng-hide="file.editing"  ng-dblclick="editFile(file)">{{ file.title}}.{{ file.extension}}</span>
+                       	 <form ng-submit="doneEdit(file)" ng-show="file.editing">
+              				<input ng-model="file.title">
+         				 </form>  
+                         <a href="#" ng-click="deleteFile(file)">Delete</a>
+                        </div>
+                      </div>
+                   </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+       </div>
+        <!-- End preview-->
+       
+        <!-- Create folder-->
+        <div class="hiddenFolder">
+	        <div class="col-md-3" style="margin-left:500px;">
+	          <div class="well">
+	          <button type="button" class="closeFolder">&times;</button>
+	            <h2>Create folder</h2>
+	            <form class="formFolder">
+	              <div class="form-group">
+	                <p>Folder location:</p>
+	                <select ng-model="folder_stage" class="form-control" >
+	                  <option  ng-repeat="folder in folders" value="{{ folder.stage }}">
+	                    {{ folder.title }}
+	                  </option>
+	                </select>
+	              </div>
+	              <div class="form-group">
+	                <p>Folder name:</p>
+	                <input type="text" class="form-control" ng-model="folder_title" placeholder="Name..."><br>
+	                <button class="saveFolder btn btn-primary" ng-click="addFolder(folder_stage, folder_title)">
+	                  Save
+	                </button>
+	              </div>
+	            </form>
+	          </div>
+	        </div> 
+	    </div>  
+        <!-- End create folder-->
+
+
+        <!-- Create file-->
+        <div class="hiddenFile">
+	        <div class="col-md-3">
+	          <div class="well">
+	          	<button type="button" class="closeFile">&times;</button>
+	            <h2>Create file</h2>
+	            <form class="formFile">
+	              <div class="form-group">
+	                <p>File location:</p>
+	                <select ng-model="folder_id" class="form-control" >
+	                  <option ng-repeat="folder in folders" value="{{ folder.stage }}">
+	                    {{ folder.title}}
+	                  </option>
+	                </select>
+	              </div>
+	              <div class="form-group">
+	                <labels>File name</labels>
+	                <input type="text" class="form-control" ng-model="file_title" placeholder="Name..."><br>
+	              </div>
+	              <div class="form-group">
+	                <p>Extension:</p>
+	                <select ng-model="file_extension" class="form-control" >
+	                  <option ng-repeat="ex in ['js', 'html', 'php', 'css']" value="{{ ex }}">
+	                    {{ ex }}
+	                  </option>
+	                </select>
+	              </div>
+	              <div class="form-group">
+	                <button class=" saveFile btn btn-primary" ng-click="addFile(folder_id, file_title, file_extension)">
+	                  Save
+	                </button>
+	              </div>
+	            </form>
+	          </div>
+	        </div>
+	    </div>
+        <!-- End create file-->
+      </div>
+    </div>
+  </div>
+</body>
+</html>
