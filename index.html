@@ -28,8 +28,9 @@
 		 <div class="row">
 
         <!-- Preview-->
+        <div class="caret"></div>
         <div class="col-md-6">
-          <div class="klasa" ng-repeat="folder in folders">
+          <div  class="klasa" ng-repeat="folder in folders">
             <div class="row">
               <div class="col-md-4">
                 <div ng-repeat="n in range(0,5)">
@@ -39,28 +40,32 @@
                                                  n === 3 && {'margin-left': '60px'} ||
                                                  n === 4 && {'margin-left': '80px'} ||
                                                  n === 5 && {'margin-left': '100px'}">
-                    <div class="root">
-                      <img src="img/folder.png" width="20">
-                        <span ng-hide="folder.editing"  ng-dblclick="editFolder(folder)"> {{ folder.title }}</span>
                      
-                      	 <form ng-submit="doneEditing(folder)" ng-show="folder.editing">
+                    <div  class="root">
+                      <img  src="img/folder.png" width="20">
+                        <span ng-hide="folder.editing"  ng-dblclick="editFolder(folder)"> {{ folder.title }}</span>
+                      	 <form  ng-submit="doneEditing(folder)" ng-click="doneEditing(folder)" ng-show="folder.editing">
               				<input ng-model="folder.title">
          				 </form>  
-         				  <a  class="btnDelete" href="#" ng-click="deleteFolder(folder.id)">Delete</a>   
+         				  <a  class="btnDelete" href="#" ng-click="deleteFolder(folder.id)">Delete</a> 
+         			  </div>  
          			</div>
                   </div>
                 </div>
               </div>
-            </div>
 
-              <div class="col-md-4">
-                  <div ng-repeat="file in files" >
+              <div class="col-md-8">
+                  <div class="firstFile" ng-repeat="file in files">
                     <div ng-if="file.id == folder.id">
-                      <div class="row" style="margin-left:-70px; margin-top: 20px; padding-top: 30px;">
+                      <div class="row" style="margin-left:-30px;" ng-style="folder.stage === 1 && {'margin-left':'20px'} ||
+                      							 folder.stage === 2 && {'margin-left':'40px'} ||
+                      							 folder.stage === 3 && {'margin-left':'60px'} ||
+                      							 folder.stage === 4 && {'margin-left':'80px'} ||
+                      							 folder.stage === 5 && {'margin-left':'100px'}">
                         <img src="img/file.png" class="img-rounded" width="20">
 
                          <span ng-hide="file.editing"  ng-dblclick="editFile(file)">{{ file.title}}.{{ file.extension}}</span>
-                       	 <form ng-submit="doneEdit(file)" ng-show="file.editing">
+                       	 <form ng-submit="doneEdit(file)" ng-click="doneEdit(file)" ng-show="file.editing">
               				<input ng-model="file.title">
          				 </form>  
                          <a href="#" ng-click="deleteFile(file)">Delete</a>
@@ -72,12 +77,12 @@
             </div>
           </div>
         </div>
-       </div>
+      </div>
         <!-- End preview-->
        
         <!-- Create folder-->
         <div class="hiddenFolder">
-	        <div class="col-md-3" style="margin-left:500px;">
+	        <div class="col-md-3">
 	          <div class="well">
 	          <button type="button" class="closeFolder">&times;</button>
 	            <h2>Create folder</h2>
@@ -114,7 +119,7 @@
 	              <div class="form-group">
 	                <p>File location:</p>
 	                <select ng-model="folder_id" class="form-control" >
-	                  <option ng-repeat="folder in folders" value="{{ folder.stage }}">
+	                  <option ng-repeat="folder in folders" value="{{ folder.id }}">
 	                    {{ folder.title}}
 	                  </option>
 	                </select>

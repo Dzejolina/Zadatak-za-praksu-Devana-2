@@ -19,9 +19,11 @@
 }
 .hiddenFolder{
 	visibility: hidden;
+	z-index: 60000;
 }
 .hiddenFile{
 	visibility: hidden;
+	z-index: 60000;
 }
 .visible{
 	visibility: visible;
@@ -38,15 +40,33 @@
 .toggleFile{
 	margin-top: 10px;
 }
-.root{
-	margin-top: 20px;
-}
 .row{
-	width:300px;
+	width:150px;
+	
 }
 .row img{
 	float: left;
 }
 .col-md-6 > .klasa:first-of-type > .row .root .btnDelete {
- display: none; 
+ display: none;
+ visibility: visible;
 }
+.firstFile:first-child  {
+	padding-top: 20px;
+}
+.container{
+	width: 40% !important;
+	float: left;
+}
+.caret{
+	float: left;
+	margin-top: 10px;
+	margin-right: 10px;
+	cursor: pointer;
+ 
+	
+}
+.hidden{
+	visibility: hidden;
+}
+
