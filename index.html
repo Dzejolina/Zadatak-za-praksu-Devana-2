@@ -30,10 +30,10 @@
         <!-- Preview-->
         <div class="caret"></div>
         <div class="col-md-6">
-          <div ng-model="folder.title" class="klasa" ng-repeat="folder in folders | orderBy:myValueFunction ">
+          <div  ng-model="folder.title" class="klasa" ng-repeat="folder in folders | orderBy:myValueFunction">
             <div class="row">
               <div class="col-md-4">
-                <div ng-repeat="n in range(0,5)">
+                <div ng-repeat="n in range(0,5) | orderBy: 'order' ">
                   <div ng-if="folder.stage == n">
                     <div  class="row" ng-style=" n === 1 && {'margin-left': '20px'} ||
                                                  n === 2 && {'margin-left': '40px'} ||
@@ -44,7 +44,7 @@
                     <div  class="root">
                       <img  src="img/folder.png" width="20">
                         <span ng-hide="folder.editing"  ng-dblclick="editFolder(folder)"> {{ folder.title }}</span>
-                      	 <form class="editForm" ng-submit="doneEditing(folder)" ng-click="doneEditing(folder)" ng-show="folder.editing">
+                      	 <form class="editForm"  ng-submit="doneEditing(folder)"  ng-show="folder.editing">
               				<input ng-model="folder.title">
          				 </form>  
          				  <a  class="btnDelete" href="#" ng-click="deleteFolder(folder.id)">Delete</a> 
@@ -65,7 +65,7 @@
                         <img src="img/file.png" class="img-rounded" width="20">
 
                          <span ng-hide="file.editing"  ng-dblclick="editFile(file)">{{ file.title}}.{{ file.extension}}</span>
-                       	 <form class="editForm" ng-submit="doneEdit(file)" ng-click="doneEdit(file)" ng-show="file.editing">
+                       	 <form class="editForm" ng-submit="doneEdit(file)"   ng-show="file.editing">
               				<input ng-model="file.title">
          				 </form>  
                          <a class="del" href="#" ng-click="deleteFile(file)">Delete</a>

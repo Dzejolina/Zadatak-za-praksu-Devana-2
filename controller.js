@@ -89,6 +89,18 @@ $scope.myValueFunction = function(folder){
         });
     });
 
+    //hide form on outer click
+    $(document).ready(function() {
+        $('.hiddenFile, .hiddenFolder').click(function(e) {
+            e.stopPropagation();
+        });
+        $('body').click(function() {
+            if( $('.editForm').is('visible') ) {
+                $('.editForm').addClass('hidden');
+
+            }
+        });
+    });
     //Brisanje foldera
     $scope.deleteFolder = function(folder) {
         var index = $scope.folders.indexOf(folder);
@@ -115,12 +127,13 @@ $scope.myValueFunction = function(folder){
         }
 
     }
-        
+    
     $scope.doneEditing = function(folder){
         folder.editing=false;
         
 
     }
+           
     
     //Editovanje file-a
 
@@ -131,6 +144,8 @@ $scope.myValueFunction = function(folder){
     $scope.doneEdit = function(file){
         file.editing=false;
     }
+
+   
     //dugme show/hide
 
     $(document).ready(function(){
