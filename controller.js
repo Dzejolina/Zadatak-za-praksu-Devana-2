@@ -19,7 +19,14 @@ ngApp.controller('appController', function ($scope) {
 
     $scope.folder_id = 0;
 
-
+$scope.myValueFunction = function(folder){
+    if(folder.title == "root"){
+        return -1;
+    }
+    else{
+        return folder.title;
+    }
+}
 
 
 
@@ -94,7 +101,7 @@ ngApp.controller('appController', function ($scope) {
         $scope.files.splice(index, 1);
     };
 
-    $scope.order = 'title';
+    
 
 
     //Editovanje foldera
